@@ -1,3 +1,6 @@
+#JenniferChu
+#1873159
+
 user_num1 = int(input("Enter integer:\n"))
 print("You entered:", user_num1)
 user_num1_sq = user_num1 * user_num1
