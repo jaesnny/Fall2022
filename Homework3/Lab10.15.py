@@ -1,3 +1,6 @@
+#JenniferChu
+#1873159
+
 class Team:
     def __init__(self) -> object:
         self.team_name = 'none'
