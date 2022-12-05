@@ -83,7 +83,7 @@ with open('FinalProjectPastServiceDate.csv', 'w') as past_service_file:
             # sort by dates
             item_list.sort(key=sortDate)
             # format
-            past_service_file.write(f"{row[0]},{row[1]},{row[3]},{row[4]},{row[5]}")
+            past_service_file.write(f"{row[0]},{row[1]},{row[3]},{row[4]},{row[5]}\n")
 
 # part d
 with open('FinalProjectDamaged.csv', 'w') as damaged_file:
