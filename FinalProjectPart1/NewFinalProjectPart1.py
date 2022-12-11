@@ -90,12 +90,15 @@ with open('FinalProjectTower.csv', 'w') as tower_file:
             tower_file.write(f"{row[0]},{row[1]},{row[3]},{row[4]},{row[5]}\n")
 
 # part c
+# finds dates that are past current date
 with open("FinalProjectPastServiceDate.csv", 'w') as past_service_date_file:
     # get current date
     today = datetime.date.today()
+    # seperates the dates by '/'
     for row in item_list:
         date_separate = row[4].split('/')
         serve_date = datetime.date(int(date_separate[2]), int(date_separate[0]), int(date_separate[1]))
+        # finds difference btw date and current date
         time_difference = serve_date - today
         if time_difference.days < 0:
             item_list.sort(key=sortDate)
