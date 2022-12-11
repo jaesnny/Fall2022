@@ -101,12 +101,17 @@ with open("FinalProjectPastServiceDate.csv", 'w') as past_service_date_file:
         # finds difference btw date and current date
         time_difference = serve_date - today
         if time_difference.days < 0:
+            # sorts date
             item_list.sort(key=sortDate)
+            # format
             past_service_date_file.write(f'{row[0]},{row[1]},{row[3]},{row[4]},{row[5]}\n')
 
 # part d
 with open('FinalProjectDamaged.csv', 'w') as damaged_file:
     for row in item_list:
+        # filters out for only items that are damaged
         if row[5] == 'damaged':
+            # sort by the price from least to most expensive
             item_list.sort(key=sortPrice, reverse=True)
+            # format
             damaged_file.write(f'{row[0]},{row[1]},{row[3]},{row[4]},{row[5]}\n')
