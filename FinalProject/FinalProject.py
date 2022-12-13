@@ -110,3 +110,54 @@ with open('FinalProjectDamaged.csv', 'w') as damaged_file:
             item_list.sort(key=sortPrice, reverse=True)
             # format
             damaged_file.write(f'{row[0]},{row[1]},{row[3]},{row[4]},{row[5]}\n')
+
+# -----PART 2-----
+# creates new list for users
+user_list = []
+for row in item_list:
+    # only adds items that aren't damaged and has not pass the due date
+    if row[5] != 'damaged':
+        user_list.append(row)
+        today = datetime.date.today()
+        date_separate = row[4].split('/')
+        serve_date = datetime.date(int(date_separate[2]), int(date_separate[0]), int(date_separate[1]))
+        # finds difference btw date and current date
+        time_difference = serve_date - today
+        if time_difference.days < 0:
+            user_list.remove(row)
+    # sorts prices from most to least expensive
+    user_list.sort(key=sortPrice, reverse=True)
+while True:
+    user_input = input('Please enter the manufacturer and item type:\n').split()
+    manufacturer_item_list = []
+    # filters if user_input has more than 2 words to get rid of extra words
+    if len(user_input) > 2:
+        manufacturer_item_list.append(user_input[len(user_input) - 2])
+        manufacturer_item_list.append(user_input[len(user_input) - 1])
+    elif len(user_input) == 2:
+        # if user_input has 2 words
+        manufacturer_item_list = user_input
+    # allows user to quit when input is q
+    elif len(user_input) == 1 and 'q':
+        break
+    else:
+        print("Please enter again")
+    success = False
+    for product in user_list:
+        # prints out match that user is looking for
+        if manufacturer_item_list[0] in product[1] and manufacturer_item_list[1] in product[2]:
+            print('Your item is:', f'{product[0]}, {product[1]}, {product[2]}, ${product[3]}')
+            # item is found
+            success = True
+            # finds same item with similar price
+            similar_success = False
+            for similar_product in user_list:
+                if manufacturer_item_list[0] not in similar_product[1] and manufacturer_item_list[1] in similar_product[2]:
+                    print("You may, also, consider:",
+                          f'{similar_product[0]}, {similar_product[1]}, {similar_product[2]}, ${similar_product[3]}')
+                    similar_success = True
+            if not similar_success:
+                print("There are no other similar items")
+    # prints out that user_input entered could not be found in inventory
+    if not success:
+        print("No such item in inventory")
